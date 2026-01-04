@@ -12,7 +12,10 @@ link_agent() {
     return 0
   fi
 
-  if [ ! -L "$target" ] || [ ! -e "$target" ]; then
+  local current
+  current="$(/usr/bin/readlink "$target" 2>/dev/null || true)"
+
+  if [ "$current" != "$candidate" ]; then
     /bin/ln -sfn "$candidate" "$target"
     /bin/launchctl bootout "gui/$UID" "$target" 2>/dev/null || true
     /bin/launchctl bootstrap "gui/$UID" "$target" 2>/dev/null || true

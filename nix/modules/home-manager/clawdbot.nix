@@ -657,7 +657,7 @@ let
     gatewayWrapper = pkgs.writeShellScriptBin "clawdbot-gateway-${name}" ''
       set -euo pipefail
 
-      if [ "${toString (pluginPackages != [])}" = "true" ]; then
+      if [ -n "${lib.makeBinPath pluginPackages}" ]; then
         export PATH="${lib.makeBinPath pluginPackages}:$PATH"
       fi
 
