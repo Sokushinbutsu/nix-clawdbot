@@ -953,6 +953,12 @@ in {
       ''
     );
 
+    home.activation.clawdbotLaunchdRelink = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (
+      lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+        /usr/bin/env bash ${./clawdbot-launchd-relink.sh}
+      ''
+    );
+
     launchd.agents = lib.mkMerge (map (item: item.launchdAgent) instanceConfigs);
   };
 }
