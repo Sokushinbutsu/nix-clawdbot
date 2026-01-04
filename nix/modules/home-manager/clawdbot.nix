@@ -702,15 +702,20 @@ let
           WorkingDirectory = inst.stateDir;
           StandardOutPath = inst.logPath;
           StandardErrorPath = inst.logPath;
-          EnvironmentVariables = {
-            HOME = homeDir;
-            CLAWDBOT_CONFIG_PATH = inst.configPath;
-            CLAWDBOT_STATE_DIR = inst.stateDir;
-            CLAWDBOT_IMAGE_BACKEND = "sips";
-            CLAWDBOT_NIX_MODE = "1";
-          };
+        EnvironmentVariables = {
+          HOME = homeDir;
+          CLAWDBOT_CONFIG_PATH = inst.configPath;
+          CLAWDBOT_STATE_DIR = inst.stateDir;
+          CLAWDBOT_IMAGE_BACKEND = "sips";
+          CLAWDBOT_NIX_MODE = "1";
+          # Backward-compatible env names (gateway still uses CLAWDIS_* in some builds).
+          CLAWDIS_CONFIG_PATH = inst.configPath;
+          CLAWDIS_STATE_DIR = inst.stateDir;
+          CLAWDIS_IMAGE_BACKEND = "sips";
+          CLAWDIS_NIX_MODE = "1";
         };
       };
+    };
     };
 
     appDefaults = lib.optionalAttrs (pkgs.stdenv.hostPlatform.isDarwin && inst.appDefaults.enable) {
