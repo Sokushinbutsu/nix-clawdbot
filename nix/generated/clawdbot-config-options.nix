@@ -3631,6 +3631,9 @@ in
     heartbeatIdleMinutes = lib.mkOption {
       type = t.int;
     };
+    identityLinks = lib.mkOption {
+      type = t.attrsOf (t.listOf (t.str));
+    };
     idleMinutes = lib.mkOption {
       type = t.int;
     };
