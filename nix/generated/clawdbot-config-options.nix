@@ -3705,7 +3705,7 @@ in
             type = t.str;
           };
           chatType = lib.mkOption {
-            type = t.oneOf [ t.enum [ "direct" ] t.enum [ "group" ] t.enum [ "room" ] ];
+            type = t.oneOf [ t.enum [ "direct" ] t.enum [ "group" ] t.enum [ "channel" ] t.enum [ "room" ] ];
           };
           keyPrefix = lib.mkOption {
             type = t.str;
@@ -3810,20 +3810,6 @@ in
     allow = lib.mkOption {
       type = t.listOf (t.str);
     };
-    audio = lib.mkOption {
-      type = t.submodule { options = {
-      transcription = lib.mkOption {
-        type = t.submodule { options = {
-        args = lib.mkOption {
-          type = t.listOf (t.str);
-        };
-        timeoutSeconds = lib.mkOption {
-          type = t.int;
-        };
-      }; };
-      };
-    }; };
-    };
     bash = lib.mkOption {
       type = t.submodule { options = {
       backgroundMs = lib.mkOption {
@@ -3883,6 +3869,286 @@ in
       };
       timeoutSec = lib.mkOption {
         type = t.int;
+      };
+    }; };
+    };
+    media = lib.mkOption {
+      type = t.submodule { options = {
+      audio = lib.mkOption {
+        type = t.submodule { options = {
+        enabled = lib.mkOption {
+          type = t.bool;
+        };
+        language = lib.mkOption {
+          type = t.str;
+        };
+        maxBytes = lib.mkOption {
+          type = t.int;
+        };
+        maxChars = lib.mkOption {
+          type = t.int;
+        };
+        models = lib.mkOption {
+          type = t.listOf (t.submodule { options = {
+          args = lib.mkOption {
+            type = t.listOf (t.str);
+          };
+          capabilities = lib.mkOption {
+            type = t.listOf (t.oneOf [ t.enum [ "image" ] t.enum [ "audio" ] t.enum [ "video" ] ]);
+          };
+          command = lib.mkOption {
+            type = t.str;
+          };
+          language = lib.mkOption {
+            type = t.str;
+          };
+          maxBytes = lib.mkOption {
+            type = t.int;
+          };
+          maxChars = lib.mkOption {
+            type = t.int;
+          };
+          model = lib.mkOption {
+            type = t.str;
+          };
+          preferredProfile = lib.mkOption {
+            type = t.str;
+          };
+          profile = lib.mkOption {
+            type = t.str;
+          };
+          prompt = lib.mkOption {
+            type = t.str;
+          };
+          provider = lib.mkOption {
+            type = t.str;
+          };
+          timeoutSeconds = lib.mkOption {
+            type = t.int;
+          };
+          type = lib.mkOption {
+            type = t.oneOf [ t.enum [ "provider" ] t.enum [ "cli" ] ];
+          };
+        }; });
+        };
+        prompt = lib.mkOption {
+          type = t.str;
+        };
+        scope = lib.mkOption {
+          type = t.submodule { options = {
+          default = lib.mkOption {
+            type = t.oneOf [ t.enum [ "allow" ] t.enum [ "deny" ] ];
+          };
+          rules = lib.mkOption {
+            type = t.listOf (t.submodule { options = {
+            action = lib.mkOption {
+              type = t.oneOf [ t.enum [ "allow" ] t.enum [ "deny" ] ];
+            };
+            match = lib.mkOption {
+              type = t.submodule { options = {
+              channel = lib.mkOption {
+                type = t.str;
+              };
+              chatType = lib.mkOption {
+                type = t.oneOf [ t.enum [ "direct" ] t.enum [ "group" ] t.enum [ "channel" ] t.enum [ "room" ] ];
+              };
+              keyPrefix = lib.mkOption {
+                type = t.str;
+              };
+            }; };
+            };
+          }; });
+          };
+        }; };
+        };
+        timeoutSeconds = lib.mkOption {
+          type = t.int;
+        };
+      }; };
+      };
+      image = lib.mkOption {
+        type = t.submodule { options = {
+        enabled = lib.mkOption {
+          type = t.bool;
+        };
+        language = lib.mkOption {
+          type = t.str;
+        };
+        maxBytes = lib.mkOption {
+          type = t.int;
+        };
+        maxChars = lib.mkOption {
+          type = t.int;
+        };
+        models = lib.mkOption {
+          type = t.listOf (t.submodule { options = {
+          args = lib.mkOption {
+            type = t.listOf (t.str);
+          };
+          capabilities = lib.mkOption {
+            type = t.listOf (t.oneOf [ t.enum [ "image" ] t.enum [ "audio" ] t.enum [ "video" ] ]);
+          };
+          command = lib.mkOption {
+            type = t.str;
+          };
+          language = lib.mkOption {
+            type = t.str;
+          };
+          maxBytes = lib.mkOption {
+            type = t.int;
+          };
+          maxChars = lib.mkOption {
+            type = t.int;
+          };
+          model = lib.mkOption {
+            type = t.str;
+          };
+          preferredProfile = lib.mkOption {
+            type = t.str;
+          };
+          profile = lib.mkOption {
+            type = t.str;
+          };
+          prompt = lib.mkOption {
+            type = t.str;
+          };
+          provider = lib.mkOption {
+            type = t.str;
+          };
+          timeoutSeconds = lib.mkOption {
+            type = t.int;
+          };
+          type = lib.mkOption {
+            type = t.oneOf [ t.enum [ "provider" ] t.enum [ "cli" ] ];
+          };
+        }; });
+        };
+        prompt = lib.mkOption {
+          type = t.str;
+        };
+        scope = lib.mkOption {
+          type = t.submodule { options = {
+          default = lib.mkOption {
+            type = t.oneOf [ t.enum [ "allow" ] t.enum [ "deny" ] ];
+          };
+          rules = lib.mkOption {
+            type = t.listOf (t.submodule { options = {
+            action = lib.mkOption {
+              type = t.oneOf [ t.enum [ "allow" ] t.enum [ "deny" ] ];
+            };
+            match = lib.mkOption {
+              type = t.submodule { options = {
+              channel = lib.mkOption {
+                type = t.str;
+              };
+              chatType = lib.mkOption {
+                type = t.oneOf [ t.enum [ "direct" ] t.enum [ "group" ] t.enum [ "channel" ] t.enum [ "room" ] ];
+              };
+              keyPrefix = lib.mkOption {
+                type = t.str;
+              };
+            }; };
+            };
+          }; });
+          };
+        }; };
+        };
+        timeoutSeconds = lib.mkOption {
+          type = t.int;
+        };
+      }; };
+      };
+      video = lib.mkOption {
+        type = t.submodule { options = {
+        enabled = lib.mkOption {
+          type = t.bool;
+        };
+        language = lib.mkOption {
+          type = t.str;
+        };
+        maxBytes = lib.mkOption {
+          type = t.int;
+        };
+        maxChars = lib.mkOption {
+          type = t.int;
+        };
+        models = lib.mkOption {
+          type = t.listOf (t.submodule { options = {
+          args = lib.mkOption {
+            type = t.listOf (t.str);
+          };
+          capabilities = lib.mkOption {
+            type = t.listOf (t.oneOf [ t.enum [ "image" ] t.enum [ "audio" ] t.enum [ "video" ] ]);
+          };
+          command = lib.mkOption {
+            type = t.str;
+          };
+          language = lib.mkOption {
+            type = t.str;
+          };
+          maxBytes = lib.mkOption {
+            type = t.int;
+          };
+          maxChars = lib.mkOption {
+            type = t.int;
+          };
+          model = lib.mkOption {
+            type = t.str;
+          };
+          preferredProfile = lib.mkOption {
+            type = t.str;
+          };
+          profile = lib.mkOption {
+            type = t.str;
+          };
+          prompt = lib.mkOption {
+            type = t.str;
+          };
+          provider = lib.mkOption {
+            type = t.str;
+          };
+          timeoutSeconds = lib.mkOption {
+            type = t.int;
+          };
+          type = lib.mkOption {
+            type = t.oneOf [ t.enum [ "provider" ] t.enum [ "cli" ] ];
+          };
+        }; });
+        };
+        prompt = lib.mkOption {
+          type = t.str;
+        };
+        scope = lib.mkOption {
+          type = t.submodule { options = {
+          default = lib.mkOption {
+            type = t.oneOf [ t.enum [ "allow" ] t.enum [ "deny" ] ];
+          };
+          rules = lib.mkOption {
+            type = t.listOf (t.submodule { options = {
+            action = lib.mkOption {
+              type = t.oneOf [ t.enum [ "allow" ] t.enum [ "deny" ] ];
+            };
+            match = lib.mkOption {
+              type = t.submodule { options = {
+              channel = lib.mkOption {
+                type = t.str;
+              };
+              chatType = lib.mkOption {
+                type = t.oneOf [ t.enum [ "direct" ] t.enum [ "group" ] t.enum [ "channel" ] t.enum [ "room" ] ];
+              };
+              keyPrefix = lib.mkOption {
+                type = t.str;
+              };
+            }; };
+            };
+          }; });
+          };
+        }; };
+        };
+        timeoutSeconds = lib.mkOption {
+          type = t.int;
+        };
+      }; };
       };
     }; };
     };
