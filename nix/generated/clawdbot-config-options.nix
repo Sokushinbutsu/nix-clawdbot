@@ -1054,6 +1054,44 @@ in
           };
         }; };
         };
+        exec = lib.mkOption {
+          type = t.submodule { options = {
+          applyPatch = lib.mkOption {
+            type = t.submodule { options = {
+            allowModels = lib.mkOption {
+              type = t.listOf (t.str);
+            };
+            enabled = lib.mkOption {
+              type = t.bool;
+            };
+          }; };
+          };
+          ask = lib.mkOption {
+            type = t.enum [ "off" "on-miss" "always" ];
+          };
+          backgroundMs = lib.mkOption {
+            type = t.int;
+          };
+          cleanupMs = lib.mkOption {
+            type = t.int;
+          };
+          host = lib.mkOption {
+            type = t.enum [ "sandbox" "gateway" "node" ];
+          };
+          node = lib.mkOption {
+            type = t.str;
+          };
+          notifyOnExit = lib.mkOption {
+            type = t.bool;
+          };
+          security = lib.mkOption {
+            type = t.enum [ "deny" "allowlist" "full" ];
+          };
+          timeoutSec = lib.mkOption {
+            type = t.int;
+          };
+        }; };
+        };
         profile = lib.mkOption {
           type = t.oneOf [ t.enum [ "minimal" ] t.enum [ "coding" ] t.enum [ "messaging" ] t.enum [ "full" ] ];
         };
